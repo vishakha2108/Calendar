@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+			<title>Calendar</title>
+	<link rel="stylesheet" href = "style.css">
+	<script src="script.js" defer></script>
+	</head>
+
+	<body id = "body">
+		<H3 class = "heading"> Calendar</H3>
+
+		<div class=" date-select-division">
+			<!--Dropdown -->
+			<label >Month:</label>
+
+				<select name="Months" id="Months">
+  					<option value="01">January</option>
+					<option value="02">February</option>
+					<option value="03">March</option>
+					<option value="04">April</option>
+					<option value="05">May</option>
+					<option value="06">June</option>
+					<option value="07">July</option>
+					<option value="08">August</option>
+					<option value="09">September</option>
+					<option value="10">October</option>
+					<option value="11">November</option>
+					<option value="12">December</option>
+				</select>
+
+			<label >Year:</label>
+
+				<select name="Year" id="Year">
+  					<option value="01">2001</option>
+					<option value="02">2002</option>
+					<option value="03">2003</option>
+					<option value="04">2004</option>
+					<option value="05">2005</option>
+					<option value="06">2006</option>
+					<option value="07">2007</option>
+					<option value="08">2008</option>
+					<option value="09">2009</option>
+					<option value="10">2010</option>
+					<option value="11">2011</option>
+					<option value="12">2012</option>
+					<option value="13">2013</option>
+					<option value="14">2014</option>
+					<option value="15">2015</option>
+					<option value="16">2016</option>
+					<option value="17">2017</option>
+					<option value="18">2018</option>
+					<option value="19">2019</option>
+					<option value="20">2020</option>
+					<option value="21">2021</option>
+					<option value="22">2022</option>
+					<option value="23">2023</option>
+					<option value="24">2024</option>
+					<option value="25">2025</option>
+					<option value="26">2026</option>
+					<option value="27">2027</option>
+					<option value="28">2028</option>
+					<option value="29">2029</option>
+					<option value="30">2030</option>
+				</select>
+
+
+
+			<!--Button on the click of which the calendar will be displayed-->
+			<button class = "display-button" >Display</button>
+		</div>
+
+		<div class="days-division">
+			<label class="days">Sunday</label>
+			<label class="days">Monday</label>
+			<label class="days">Tuesday</label>
+			<label class="days">Wednesday</label>
+			<label class="days">Thursday</label>
+			<label class="days">Friday</label>
+			<label class="days">Saturday</label>
+		</div>
+
+		<div class="date">
+			<!--The space where the calendar (dates ) will be displayed using javascript -->
+			<p class = "arrowleft hide"></p>
+			<p class = "popup hide"></p>
+		</div>
+
+			<!--Popups triangle +box with text as date-->
+			
+
+	</body>
+</html>
