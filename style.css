@@ -1,41 +1,25 @@
-.date-select {
-	
-	color: blue;
+.display-flex
+{
+	display: flex;
+	justify-content:center;
 }
-.display-button{
-	margin-left: 20px;
-}
-
 .date-select-division
 {
-	display: flex;
-	justify-content: center;
 	margin-bottom:40px ;
-	align-self: center;
-	margin-right: 20px;
 }
-.days-division
+.numeric-date 
 {
-	display: flex;
-	justify-content: space-evenly;
-	margin-bottom:40px ;
-
+	height:80px;
+	width :12%;
+	cursor: pointer;
 }
-.numeric-date
-{
-	height: 40px;
-	width :40px;
-}
-.week
-{
-	display:flex;
-	justify-content: space-evenly;
-	margin-bottom:40px ;
+.days{
+	height:30px;
+	width :12%;
+	text-align: center;
 }
 .hide
 {
-	height: 40px;
-	width :40px;
 	visibility:hidden ;
 }
 .arrowleft{
@@ -45,23 +29,14 @@
 	border-right:20px solid plum;
 	border-top:10px solid transparent;
 	border-bottom:10px solid transparent;
-	align-self: center;
-
 }
 .popup{
-	display: flex;
 	position: absolute;
 	width :60px;
 	height:20px ;
     background-color:plum;
-	align-content: center;
-	justify-content: center;
-
 }
-#Months , #Year
+.drop-down
 {
 	margin-right: 20px;
-}
-.heading{
-	text-align: center;
 }
