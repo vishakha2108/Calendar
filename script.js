@@ -4,7 +4,7 @@ const createLabel = (() => document.createElement('label'));
 let month = '01';
 let year = '01';
 
-function fade() {
+function fadePopup() {
     //fading popout
     const rectangle = document.querySelector('.popup');
     const arrow = document.querySelector('.arrowleft');
@@ -34,7 +34,7 @@ const getWeekDays = ((nameOfDays) => {
     }
 });
 
-function display() {
+function displayCalendar() {
     clearExistingCalendar();
     //need to fetch date from dropdown
     month = document.querySelector('.months').value;
@@ -73,7 +73,7 @@ const renderGlobalHeader = (() => {
     selectMonth.classList.add('drop-down');
     selectMonth.classList.add('months');
     //As soon as user changes month render calendar again
-    selectMonth.addEventListener('change', display);
+    selectMonth.addEventListener('change', displayCalendar);
     header.appendChild(selectMonth);
     createListBox(selectMonth, 12, arrayMonths, arrayMonthsValues);
     //year
@@ -92,7 +92,7 @@ const renderGlobalHeader = (() => {
     const selectYear = document.createElement('select');
     selectYear.classList.add('drop-down');
     selectYear.classList.add('year');
-    selectYear.addEventListener('change', display);
+    selectYear.addEventListener('change', displayCalendar);
     header.appendChild(selectYear);
     createListBox(selectYear, 30, arrayYears, arrayYearsValues);
     //name of days
@@ -146,7 +146,7 @@ const calendarApp = (() => {
     //creating body elements
     createCalendar();
     createPopup();
-    display();
+    displayCalendar();
 })();
 
 function getPopup() {
@@ -181,6 +181,6 @@ function renderHiddenButtons(location, n) {
         dateButton.classList.add('numeric-date');
         location.append(dateButton); 
         dateButton.addEventListener('click', getPopup);
-        dateButton.addEventListener('focusout', fade);        
+        dateButton.addEventListener('focusout', fadePopup);        
     }
 }
