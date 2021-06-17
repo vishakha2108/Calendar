@@ -35,7 +35,7 @@ const getWeekDays = ((nameOfDays) => {
 });
 
 function displayCalendar() {
-    clearExistingCalendar();
+    //clearExistingCalendar();
     //need to fetch date from dropdown
     month = document.querySelector('.months').value;
     year = document.querySelector('.year').value;
@@ -44,13 +44,19 @@ function displayCalendar() {
     const day = userDate.getDay();
     //No of Days in the month
     const noOfDays = new Date(`20${year}`, month, 0).getDate();
-    const count = day - 1;
     const dateButtons = document.querySelectorAll('.numeric-date');
     //making buttons visible with the correct date value
+    for (let i = 0; i <= day; i++) {
+        dateButtons[i].classList.add('hide');
+    }
+    const count = day - 1;
     for (let i = 1; i <= noOfDays; i++) {
         const dateButton = dateButtons[count + i];
         dateButton.textContent = i;
         dateButton.classList.remove('hide');
+    }
+    for (let i = (count + noOfDays + 1); i < dateButtons.length; i++) {
+        dateButtons[i].classList.add('hide');
     }
 }
 
@@ -167,12 +173,6 @@ function getPopup() {
     arrow.classList.remove('hide');
 }
   
-function clearExistingCalendar() {
-    //clears the existing Calender
-    const dateButtons = document.querySelectorAll('.numeric-date');
-    dateButtons.forEach(button => { button.classList.add('hide'); });
-}
-
 function renderHiddenButtons(location, n) {
     //These buttons are recycled for dates
     for (let i = 0; i < n; i++) {
