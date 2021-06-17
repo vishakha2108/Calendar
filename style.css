@@ -1,0 +1,42 @@
+.display-flex
+{
+	display: flex;
+	justify-content:center;
+}
+.date-select-division
+{
+	margin-bottom:40px ;
+}
+.numeric-date 
+{
+	height:80px;
+	width :12%;
+	cursor: pointer;
+}
+.days{
+	height:30px;
+	width :12%;
+	text-align: center;
+}
+.hide
+{
+	visibility:hidden ;
+}
+.arrowleft{
+	position: absolute;
+	width :0;
+	height :0;
+	border-right:20px solid plum;
+	border-top:10px solid transparent;
+	border-bottom:10px solid transparent;
+}
+.popup{
+	position: absolute;
+	width :60px;
+	height:20px ;
+    background-color:plum;
+}
+.drop-down
+{
+	margin-right: 20px;
+}
