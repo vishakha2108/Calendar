@@ -1,15 +1,10 @@
 /* eslint-disable no-undef */
 const createDiv = (() => document.createElement('div'));
 const createLabel = (() => document.createElement('label'));
-let month = '01';
-let year = '01';
 
-function fadePopup() {
+function fadePopup(popup) {
     //fading popout
-    const rectangle = document.querySelector('.popup');
-    const arrow = document.querySelector('.arrowleft');
-    rectangle.classList.add('hide');
-    arrow.classList.add('hide');
+    popup.forEach(element => element.classList.add('hide'));
 }
 
 const createListBox = ((location, n, array, arrayValues) => {
@@ -34,36 +29,9 @@ const getWeekDays = ((nameOfDays) => {
     }
 });
 
-function displayCalendar() {
-    //clearExistingCalendar();
-    //need to fetch date from dropdown
-    month = document.querySelector('.months').value;
-    year = document.querySelector('.year').value;
-    const userDate = new Date(`20${year}`, month - 1);
-    //getting the number of the day on which this month starts
-    const day = userDate.getDay();
-    //No of Days in the month
-    const noOfDays = new Date(`20${year}`, month, 0).getDate();
-    const dateButtons = document.querySelectorAll('.numeric-date');
-    //making buttons visible with the correct date value
-    for (let i = 0; i <= day; i++) {
-        dateButtons[i].classList.add('hide');
-    }
-    const count = day - 1;
-    for (let i = 1; i <= noOfDays; i++) {
-        const dateButton = dateButtons[count + i];
-        dateButton.textContent = i;
-        dateButton.classList.remove('hide');
-    }
-    for (let i = (count + noOfDays + 1); i < dateButtons.length; i++) {
-        dateButtons[i].classList.add('hide');
-    }
-}
-
-const renderGlobalHeader = (() => {
+const renderGlobalHeader = ((container) => {
     //function creating the header of the page
     //div (header) for month and year
-    const container = document.querySelector('#body');
     const header = createDiv();
     header.classList.add('date-select-division');
     header.classList.add('display-flex');
@@ -79,7 +47,6 @@ const renderGlobalHeader = (() => {
     selectMonth.classList.add('drop-down');
     selectMonth.classList.add('months');
     //As soon as user changes month render calendar again
-    selectMonth.addEventListener('change', displayCalendar);
     header.appendChild(selectMonth);
     createListBox(selectMonth, 12, arrayMonths, arrayMonthsValues);
     //year
@@ -98,7 +65,9 @@ const renderGlobalHeader = (() => {
     const selectYear = document.createElement('select');
     selectYear.classList.add('drop-down');
     selectYear.classList.add('year');
-    selectYear.addEventListener('change', displayCalendar);
+    const selectDate = [selectMonth, selectYear];
+    //selectYear.addEventListener('change', displayCalendar);
+    //selectMonth.addEventListener('change', displayCalendar);
     header.appendChild(selectYear);
     createListBox(selectYear, 30, arrayYears, arrayYearsValues);
     //name of days
@@ -107,12 +76,13 @@ const renderGlobalHeader = (() => {
     weekDaysContainer.classList.add('display-flex');
     container.append(weekDaysContainer);
     getWeekDays(weekDaysContainer);
+    return selectDate;
 });
 
-function createPopup() {
+function createPopup(container) {
     //creates the popup and hides it till button is clicked
     const popup = createDiv();
-    document.querySelector('#body').appendChild(popup);
+    container.appendChild(popup);
     const rectangle = document.createElement('p');
     rectangle.classList.add('popup');
     rectangle.classList.add('hide');
@@ -121,21 +91,49 @@ function createPopup() {
     arrow.classList.add('hide');
     popup.appendChild(rectangle);
     popup.appendChild(arrow);
+    return [rectangle, arrow];
 }
 
-function createCalendar() {
+function createCalendar(container, selectDate, popup) {
     //creates the DOM calendar elements
     const areaForDates = createDiv();
+    const dateButtons = [];
     //creating a child -- this child is created afresh on clicking display button
     areaForDates.classList.add('inner');
-    document.querySelector('#body').append(areaForDates);
+    container.append(areaForDates);
     for (let i = 0; i < 6; i++) {
         const division = createDiv();
         division.classList.add('week');
         division.classList.add('display-flex');
         areaForDates.append(division);
-        renderHiddenButtons(division, 7);
+        renderHiddenButtons(division, dateButtons, 7, selectDate, popup);
     }
+    const displayCalendar = function () {
+        //clearExistingCalendar();
+        //need to fetch date from dropdown
+        const month = selectDate[0].value;
+        const year = selectDate[1].value;
+        const userDate = new Date(`20${year}`, month - 1);
+        //getting the number of the day on which this month starts
+        const day = userDate.getDay();
+        //No of Days in the month
+        const noOfDays = new Date(`20${year}`, month, 0).getDate();
+        //making buttons visible with the correct date value
+        for (let i = 0; i <= day; i++) {
+            dateButtons[i].classList.add('hide');
+        }
+        const count = day - 1;
+        for (let i = 1; i <= noOfDays; i++) {
+            const dateButton = dateButtons[count + i];
+            dateButton.textContent = i;
+            dateButton.classList.remove('hide');
+        }
+        for (let i = (count + noOfDays + 1); i < dateButtons.length; i++) {
+            dateButtons[i].classList.add('hide');
+        }
+    };
+    displayCalendar();
+    return displayCalendar;
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -148,19 +146,19 @@ const calendarApp = (() => {
     heading.classList.add('display-flex');
     container.appendChild(heading);
     //rendering the header
-    renderGlobalHeader();
+    selectDate = renderGlobalHeader(container);
     //creating body elements
-    createCalendar();
-    createPopup();
-    displayCalendar();
+    popup = createPopup(container);
+    displayCalendar = createCalendar(container, selectDate, popup);
+    selectDate.forEach(element => element.addEventListener('change', displayCalendar));
 })();
 
-function getPopup() {
+function getPopup(selectDate, popup) {
     //The on click listentener of date buttons
     //Displays the popup
-    const rect = document.querySelector('.popup');
-    const arrow = document.querySelector('.arrowleft');
-    rect.textContent = `${this.textContent}/${month}/${year}`;
+    const rect = popup[0];
+    const arrow = popup[1];
+    rect.textContent = `${this.textContent}/${selectDate[0].value}/${selectDate[1].value}`;
     //aligning the arrow and popup
     //left of arrow = right of the button
     const x = this.getBoundingClientRect().right;
@@ -173,14 +171,17 @@ function getPopup() {
     arrow.classList.remove('hide');
 }
   
-function renderHiddenButtons(location, n) {
+function renderHiddenButtons(location, dateButtons, n, selectDate, popup) {
     //These buttons are recycled for dates
     for (let i = 0; i < n; i++) {
         const dateButton = document.createElement('button');
         dateButton.classList.add('hide');
         dateButton.classList.add('numeric-date');
         location.append(dateButton); 
-        dateButton.addEventListener('click', getPopup);
-        dateButton.addEventListener('focusout', fadePopup);        
+        dateButtons.push(dateButton);
+        dateButton.addEventListener('click', 
+        () => { getPopup.call(dateButton, selectDate, popup); });
+        dateButton.addEventListener('focusout', 
+        () => { fadePopup.call(dateButton, popup); });        
     }
 }
